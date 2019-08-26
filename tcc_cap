@@ -1,0 +1,84 @@
+-- --------------------------------------------------------
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.7.17-log - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  9.5.0.5196
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- 导出 tcc_cap 的数据库结构
+CREATE DATABASE IF NOT EXISTS `tcc_cap` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `tcc_cap`;
+
+-- 导出  表 tcc_cap.cap_capital_account 结构
+CREATE TABLE IF NOT EXISTS `cap_capital_account` (
+  `CAPITAL_ACCOUNT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BALANCE_AMOUNT` decimal(10,0) DEFAULT NULL,
+  `USER_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CAPITAL_ACCOUNT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  tcc_cap.cap_capital_account 的数据：~2 rows (大约)
+/*!40000 ALTER TABLE `cap_capital_account` DISABLE KEYS */;
+INSERT INTO `cap_capital_account` (`CAPITAL_ACCOUNT_ID`, `BALANCE_AMOUNT`, `USER_ID`) VALUES
+	(1, 14988, 1000),
+	(2, 97812, 2000);
+/*!40000 ALTER TABLE `cap_capital_account` ENABLE KEYS */;
+
+-- 导出  表 tcc_cap.cap_trade_order 结构
+CREATE TABLE IF NOT EXISTS `cap_trade_order` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SELF_USER_ID` bigint(11) DEFAULT NULL,
+  `OPPOSITE_USER_ID` bigint(11) DEFAULT NULL,
+  `MERCHANT_ORDER_NO` varchar(45) DEFAULT NULL,
+  `AMOUNT` decimal(10,0) DEFAULT NULL,
+  `STATUS` varchar(45) DEFAULT NULL,
+  `VERSION` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  tcc_cap.cap_trade_order 的数据：~10 rows (大约)
+/*!40000 ALTER TABLE `cap_trade_order` DISABLE KEYS */;
+INSERT INTO `cap_trade_order` (`ID`, `SELF_USER_ID`, `OPPOSITE_USER_ID`, `MERCHANT_ORDER_NO`, `AMOUNT`, `STATUS`, `VERSION`) VALUES
+	(1, 2000, 1000, 'b36e7dbb-f07a-4fca-98d1-80de77900818', 4988, 'CONFIRM', '2'),
+	(2, 2000, 1000, '803573e0-4c21-4847-b54a-9086bee3936a', 4988, 'CANCEL', '2'),
+	(3, 2000, 1000, '20de6de1-4649-4588-bece-baa5d4223a3b', 1988, 'CANCEL', '2'),
+	(4, 2000, 1000, 'e37de4ce-2896-4245-ae5b-0f533ea86f2f', 1988, 'CANCEL', '2'),
+	(5, 2000, 1000, 'ff8473eb-277d-428b-abf8-87b5d3398d29', 1988, 'CANCEL', '2'),
+	(6, 2000, 1000, '34b67ba6-7aa4-40d9-8017-b65cf1e553d6', 2188, 'DRAFT', '1'),
+	(7, 2000, 1000, 'a8be036c-aed3-4579-b25b-a710c6615554', 2188, 'DRAFT', '1'),
+	(9, 2000, 1000, '06e31eb4-b4c5-4db8-ad3f-224e5a617d01', 2188, 'DRAFT', '1'),
+	(10, 2000, 1000, 'c4707dcd-df45-4967-b5fc-9524d2c2d53d', 2188, 'DRAFT', '1'),
+	(11, 2000, 1000, '7e99a335-c73c-4e0f-b7fd-a3356fcb8d9c', 2188, 'DRAFT', '1');
+/*!40000 ALTER TABLE `cap_trade_order` ENABLE KEYS */;
+
+-- 导出  表 tcc_cap.tcc_transaction_cap 结构
+CREATE TABLE IF NOT EXISTS `tcc_transaction_cap` (
+  `TRANSACTION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `DOMAIN` varchar(100) DEFAULT NULL,
+  `GLOBAL_TX_ID` varbinary(200) NOT NULL,
+  `BRANCH_QUALIFIER` varbinary(200) NOT NULL,
+  `CONTENT` varbinary(8000) DEFAULT NULL,
+  `STATUS` int(11) DEFAULT NULL,
+  `TRANSACTION_TYPE` int(11) DEFAULT NULL,
+  `RETRIED_COUNT` int(11) DEFAULT NULL,
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `LAST_UPDATE_TIME` datetime DEFAULT NULL,
+  `VERSION` int(11) DEFAULT NULL,
+  PRIMARY KEY (`TRANSACTION_ID`),
+  UNIQUE KEY `UX_TX_BQ` (`GLOBAL_TX_ID`,`BRANCH_QUALIFIER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  tcc_cap.tcc_transaction_cap 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `tcc_transaction_cap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tcc_transaction_cap` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
